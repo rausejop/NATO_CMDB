@@ -1,0 +1,98 @@
+Objective:
+Develop a Streamlit-based web application to manage a Configuration Management Database (CMDB) for "Enclaves"
+
+Core Concepts:
+Enclaves: NATO locations worldwide. Each location must host at least two enclaves: one NU/NR (NATO Unclassified / NATO Restricted) and one NS (NATO Secret).
+Hierarchy: Zone → Country → Location → Enclave → Networks → Devices.
+CI Attributes: Store standard Configuration Items (CIs) including:
+- Hostname, Physical/Virtual status, Accreditation (NU/NR or NS).
+- Hardware: CPU, RAM (GB), Disk Space.
+- Networking: Interfaces, IP Address, Subnet Mask, Default Gateway, Network Name, VLAN.
+- Device Type: Switch, Router, Firewall, Printer, Laptop, Desktop, Physical Server, Virtual Server.
+- Software: OS, Functions, Installed Applications.
+- Relationships: Support Parent-Child relationships (1:N and N:M).
+
+Functional Requirements:
+- UI/UX: Use Streamlit. Implement an editable form for each CI, accessible by clicking/selecting the element.
+- Database: Use a local SQLite file for all data persistence.
+- Visualization: Generate and render network maps using Mermaid.js based on CI relationships.
+- World map: use leaflet.js
+- Export: Provide filtering capabilities and export data in TXT, Markdown, CSV, XML, and JSON formats.
+- Knowledge Integration: Reference existing logic/patterns found in the ./skills directory.
+
+2. README.md
+Markdown
+# NATO Enclave CMDB Manager
+
+A Streamlit-powered Configuration Management Database (CMDB) designed to manage NATO Enclave infrastructures, including network hierarchies, hardware specifications, and security accreditations.
+
+## 🚀 Features
+- **Hierarchical Management:** Organize assets by Location, Enclave (NU/NR vs NS), and Network.
+- **Dynamic CI Registry:** Track hardware, networking, and software specifications for all devices.
+- **Relationship Mapping:** Define parent-child dependencies between Configuration Items.
+- **Visual Network Maps:** Integrated Mermaid.js rendering for real-time infrastructure visualization.
+- **Multi-format Export:** Filter and export your data to CSV, JSON, XML, Markdown, and TXT.
+- **Local Persistence:** Lightweight SQLite backend for easy deployment.
+
+## 🛠️ Tech Stack
+- **Frontend/App Framework:** Streamlit
+- **Database:** SQLite
+- **Visualization:** Mermaid.js
+- **Language:** Python 3.9+
+
+## 📋 Prerequisites
+- Python 3.9 or higher
+- Pip (Python package manager)
+
+## 🔧 Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd nato-cmdb
+Install dependencies:
+
+Bash
+pip install -r requirements.txt
+🖥️ Usage
+Run the application using Streamlit:
+
+Bash
+streamlit run app.py
+
+---
+
+## 3. Build & Deployment Guide (`build.md`)
+
+### Development Environment Setup
+To ensure the build is consistent, it is recommended to use a virtual environment:
+
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate (Windows)
+venv\Scripts\activate
+
+# Activate (Linux/macOS)
+source venv/bin/activate
+Database Initialization
+The application is designed to check for the existence of cmdb_storage.db on startup. If not found, the init_db() function will execute the schema creation:
+
+Tables: locations, enclaves, networks, configuration_items, relationships.
+
+Project Structure
+Plaintext
+├── app.py              # Main Streamlit application
+├── database/           # SQLite connection and ORM logic
+├── exports/            # Temporary directory for generated files
+├── skills/             # Reference logic and domain knowledge
+├── requirements.txt    # Project dependencies
+└── README.md           # Documentation
+
+Dependencies (requirements.txt)
+Ensure your build includes these core libraries:
+streamlit
+pandas
+sqlite3 (built-in)
+streamlit-mermaid
+dicttoxml (for XML export support)
